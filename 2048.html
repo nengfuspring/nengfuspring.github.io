@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+	<head>
+	<title></title>
+	</head>
+	<body>
+	<script>
+	//刷新显示
+		function refresh(){
+			
+			for(i=0;i<4;i++){
+				for(j=0;j<4;j++){
+					 document.getElementById(i+""+j).innerHTML = document.getElementById(i+""+j).getAttribute("flag");
+					 if(document.getElementById(i+""+j).getAttribute("flag") == 0)
+							document.getElementById(i+""+j).setAttribute("bgcolor","#eee");
+					 if(document.getElementById(i+""+j).getAttribute("flag") == 2)
+							document.getElementById(i+""+j).setAttribute("bgcolor","#FAF0E6");
+					if(document.getElementById(i+""+j).getAttribute("flag") == 4)
+							document.getElementById(i+""+j).setAttribute("bgcolor","#FAEBD7");
+					if(document.getElementById(i+""+j).getAttribute("flag") == 8)
+							document.getElementById(i+""+j).setAttribute("bgcolor","	#FFEFD5");
+					if(document.getElementById(i+""+j).getAttribute("flag") == 16)
+							document.getElementById(i+""+j).setAttribute("bgcolor","#FFEBCD");
+					if(document.getElementById(i+""+j).getAttribute("flag") == 32)
+							document.getElementById(i+""+j).setAttribute("bgcolor","#FFE4C4");
+					if(document.getElementById(i+""+j).getAttribute("flag") == 64)
+							document.getElementById(i+""+j).setAttribute("bgcolor","#FFDAB9");
+					if(document.getElementById(i+""+j).getAttribute("flag") == 128)
+							document.getElementById(i+""+j).setAttribute("bgcolor","#FFDEAD");
+					if(document.getElementById(i+""+j).getAttribute("flag") == 256)
+							document.getElementById(i+""+j).setAttribute("bgcolor","#FFA500");
+					if(document.getElementById(i+""+j).getAttribute("flag") == 512)
+							document.getElementById(i+""+j).setAttribute("bgcolor","	#FF8C00");
+					if(document.getElementById(i+""+j).getAttribute("flag") == 1024)
+							document.getElementById(i+""+j).setAttribute("bgcolor","#FF7F50");
+					if(document.getElementById(i+""+j).getAttribute("flag") == 2048)
+							document.getElementById(i+""+j).setAttribute("bgcolor","#F08080");
+					if(document.getElementById(i+""+j).getAttribute("flag") == 4096)
+							document.getElementById(i+""+j).setAttribute("bgcolor","#FF6347");
+					if(document.getElementById(i+""+j).getAttribute("flag") == 8192)
+							document.getElementById(i+""+j).setAttribute("bgcolor","#FF4500");
+					if(document.getElementById(i+""+j).getAttribute("flag") == 16384)
+							document.getElementById(i+""+j).setAttribute("bgcolor","#FF0000");
+					if(document.getElementById(i+""+j).getAttribute("flag") == 32768)
+							document.getElementById(i+""+j).setAttribute("bgcolor","#FF1493");
+					 
+				}
+			}
+			
+		}
+	//添加新块
+		function getNew(){
+			while(true){
+				var randX = Math.round(Math.random()*3);
+				var randY = Math.round(Math.random()*3);
+				if(document.getElementById(randX+""+randY).getAttribute("flag") == 0){
+					document.getElementById(randX+""+randY).setAttribute("flag",2);
+					break;
+				}
+			}
+			refresh();
+		}
+		function up(){
+			for(i=1;i<4;i++){
+				for(j=0;j<4;j++){
+
+					for(jj=0;jj<4;jj++){
+						for(ii=3;ii>0;ii--){
+							if(document.getElementById(ii-1+""+jj).getAttribute("flag")  == 0){
+								document.getElementById(ii-1+""+jj).setAttribute("flag",document.getElementById(ii+""+jj).getAttribute("flag"));
+								document.getElementById(ii+""+jj).setAttribute("flag",0);
+							}
+						}
+					}
+					if(document.getElementById(i+""+j).getAttribute("flag")  == document.getElementById(i-1+""+j).getAttribute("flag")){
+						document.getElementById(i-1+""+j).setAttribute("flag",document.getElementById(i-1+""+j).getAttribute("flag")*2);
+						document.getElementById(i+""+j).setAttribute("flag",0);
+					}
+				}
+			}
+			getNew();
+		}
+		function down(){
+			for(i=0;i<3;i++){
+				for(j=0;j<4;j++){
+
+					for(jj=0;jj<4;jj++){
+						for(ii=0;ii<3;ii++){
+							if(document.getElementById(ii+1+""+jj).getAttribute("flag")  == 0){
+								document.getElementById(ii+1+""+jj).setAttribute("flag",document.getElementById(ii+""+jj).getAttribute("flag"));
+								document.getElementById(ii+""+jj).setAttribute("flag",0);
+							}
+						}
+					}
+					if(document.getElementById(i+1+""+j).getAttribute("flag")  == document.getElementById(i+""+j).getAttribute("flag")){
+						document.getElementById(i+1+""+j).setAttribute("flag",document.getElementById(i+1+""+j).getAttribute("flag")*2);
+						document.getElementById(i+""+j).setAttribute("flag",0);
+					}
+				}
+			}
+			getNew();
+		}
+		function right(){
+			for(i=0;i<4;i++){
+				for(j=0;j<3;j++){
+					for(jj=0;jj<3;jj++){
+						for(ii=0;ii<4;ii++){
+							if(document.getElementById(ii+""+(jj+1)).getAttribute("flag")  == 0){
+								document.getElementById(ii+""+(jj+1)).setAttribute("flag",document.getElementById(ii+""+jj).getAttribute("flag"));
+								document.getElementById(ii+""+jj).setAttribute("flag",0);
+							}
+						}
+					}
+					if(document.getElementById(i+""+(j+1)).getAttribute("flag")  == document.getElementById(i+""+j).getAttribute("flag")){
+						document.getElementById(i+""+(j+1)).setAttribute("flag",document.getElementById(i+""+(j+1)).getAttribute("flag")*2);
+						document.getElementById(i+""+j).setAttribute("flag",0);
+					}
+				}
+			}
+			getNew();
+		}
+		function left(){
+			for(i=0;i<4;i++){
+				for(j=1;j<4;j++){
+
+					for(jj=3;jj>0;jj--){
+						for(ii=0;ii<4;ii++){
+							if(document.getElementById(ii+""+(jj-1)).getAttribute("flag")  == 0){
+								document.getElementById(ii+""+(jj-1)).setAttribute("flag",document.getElementById(ii+""+jj).getAttribute("flag"));
+								document.getElementById(ii+""+jj).setAttribute("flag",0);
+							}
+						}
+					}
+					if(document.getElementById(i+""+j).getAttribute("flag")  == document.getElementById(i+""+(j-1)).getAttribute("flag")){
+						document.getElementById(i+""+(j-1)).setAttribute("flag",document.getElementById(i+""+(j-1)).getAttribute("flag")*2);
+						document.getElementById(i+""+j).setAttribute("flag",0);
+					}
+				}
+			}
+			getNew();
+		}
+		onkeydown = function(event){
+			if(event.keyCode == 37){
+				 left();
+			}
+			if(event.keyCode == 38){
+				up();
+			}
+			if(event.keyCode == 39){
+				right();
+			}
+			if(event.keyCode == 40){
+				down();
+			}
+			
+			}
+	</script>
+		<table>
+			<tr >
+				<td id="00" bgcolor="#eee" width =50 height=50 flag=0></td>
+				<td id="01" bgcolor="#eee" width =50 height=50 flag=0></td>
+				<td id="02" bgcolor="#eee" width =50 height=50 flag=0></td>
+				<td id="03" bgcolor="#eee" width =50 height=50 flag=0></td>
+			</tr>
+			<tr>
+				<td id="10" bgcolor="#eee" width =50 height=50 flag=0></td>
+				<td id="11" bgcolor="#eee" width =50 height=50 flag=0></td>
+				<td id="12" bgcolor="#eee" width =50 height=50 flag=0></td>
+				<td id="13" bgcolor="#eee" width =50 height=50 flag=0></td>
+			</tr>
+			<tr>
+				<td id="20" bgcolor="#eee" width =50 height=50 flag=0></td>
+				<td id="21" bgcolor="#eee" width =50 height=50 flag=0></td>
+				<td id="22" bgcolor="#eee" width =50 height=50 flag=0></td>
+				<td id="23" bgcolor="#eee" width =50 height=50 flag=0></td>
+			</tr>
+			<tr>
+				<td id="30" bgcolor="#eee" width =50 height=50 flag=0></td>
+				<td id="31" bgcolor="#eee" width =50 height=50 flag=0></td>
+				<td id="32" bgcolor="#eee" width =50 height=50 flag=0></td>
+				<td id="33" bgcolor="#eee" width =50 height=50 flag=0></td>
+			</tr>
+		</table>
+		<table>
+		<tr>
+			<td></td>
+			<td ><button onclick="up()">up</button></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><button onclick="left()">left</button></td>
+			<td><button onclick="down()">down</button></td>
+			<td><button onclick="right()">right</button></td>
+		</tr>
+		<button onclick="getNew()">test</button>
+	</body>
+</html>
